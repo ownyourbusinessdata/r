@@ -34,8 +34,18 @@ t %>%   ggplot(aes(x="", y=hits, fill=browser))+
 cn <- colnames(df)[1]
 n <- length(colnames(df))
 m <- nrow(df)
+# define empty tibble for missed attributes and what is the problem
+cmiss <-tibble(attribute=character(), problem=character())
+
 for (i in 1:n){
         cn <- colnames(df[i])
-        if (sum(is.na(df[cn]))==m) print(paste0("NA column: ",cn))
-        else if (sum(df[cn]=="-")==m) print(paste0("Empty column (-): ",cn))
+        if (sum(is.na(df[cn]))==m){
+                tmp <- tibble(attribute=cn, problem="NA")
+                cmiss <- rbind(cmiss, tmp)
+        } 
+        else if (sum(df[cn]=="-")==m) {
+                tmp <- tibble(attribute=cn, problem="-")
+                cmiss <- rbind(cmiss, tmp)
+        }
 }
+
