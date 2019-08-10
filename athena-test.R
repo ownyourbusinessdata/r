@@ -31,10 +31,10 @@ t %>%   ggplot(aes(x="", y=hits, fill=browser))+
 ## identyfy columns with missed data
 ## we probably need to improve or tracker or enrichment process to get it
 
-cn <- colnames(df)[1]
 n <- length(colnames(df))
 m <- nrow(df)
 # define empty tibble for missed attributes and what is the problem
+# in sample case some columns contained NAs and some "-" char when the values were missed
 cmiss <-tibble(attribute=character(), problem=character())
 
 for (i in 1:n){
@@ -49,3 +49,4 @@ for (i in 1:n){
         }
 }
 
+write_csv(cmiss, "missed_attributes.csv")
