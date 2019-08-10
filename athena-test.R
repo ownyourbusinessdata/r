@@ -28,3 +28,14 @@ t %>%   ggplot(aes(x="", y=hits, fill=browser))+
         coord_polar(theta = "y", start = 0)
 
 
+## identyfy columns with missed data
+## we probably need to improve or tracker or enrichment process to get it
+
+cn <- colnames(df)[1]
+n <- length(colnames(df))
+m <- nrow(df)
+for (i in 1:n){
+        cn <- colnames(df[i])
+        if (sum(is.na(df[cn]))==m) print(paste0("NA column: ",cn))
+        else if (sum(df[cn]=="-")==m) print(paste0("Empty column (-): ",cn))
+}
